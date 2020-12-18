@@ -2,30 +2,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sympy as sym
 
-x,a = sym.symbols('x,a')
+a=100
+x = sym.symbols('x')
 
-b=sym.simplify(sym.integrate((2/a)*(sym.cos(sym.pi*x/a)**2),(x,0,a/2)))
-b=b.subs(sym.pi,np.pi)     # transform symbolic in numeric, if to have.
-b=b.args[0][0]             # two results. Take one.
-print(round(b,2))
+b=sym.simplify(sym.integrate((2/a)*(sym.cos(sym.pi*x/a)**2),(x,0,a/2))) 
+print('Ground State: 0 to a/2=', round(b,2))
 
 c=sym.simplify(sym.integrate((2/a)*(sym.cos(sym.pi*x/a)**2),(x,-a/4,a/4)))
-c=c.subs(sym.pi,np.pi)     # transform symbolic in numeric. 
-c=c.args[0][0]             # two results. Take one.
-print(round(c,2))
+print('Ground State: -a/4 to a/4=',round(c,2))
 
 d=sym.simplify(sym.integrate((2/a)*(sym.sin(2*sym.pi*x/a)**2),(x,0,a/2)))
-d=d.subs(sym.pi,np.pi)     # transform symbolic in numeric. 
-d=d.args[0][0]             # two results. Take one.
-print(round(d,2))
+print('First Excited State: 0 to a/2=',round(d,2))
 
 e=sym.simplify(sym.integrate((2/a)*(sym.sin(2*sym.pi*x/a)**2),(x,-a/4,a/4)))
-e=e.subs(sym.pi,np.pi)     # transform symbolic in numeric. 
-e=e.args[0][0]             # two results. Take one.
-print(round(e,2))
+print('First Excited State: -a/4 to a/4=',round(e,2))
 
-a=100
-x=np.linspace(-50,50,100)   #-a/2 to a/2
+x=np.linspace(-50,50,100)   
 
 psi1=np.sqrt(2/a)*np.cos(np.pi*x/a)
 psi2=np.sqrt(2/a)*np.sin(2*np.pi*x/a)
@@ -36,7 +28,20 @@ plt.plot(x,psi2, c='b',alpha=0.5,label='First excited state')
 plt.title("Wavefunctions")
 plt.axvline(linewidth=2, color='k')
 plt.axhline(linewidth=2, color='k')
-plt.legend(loc=4,prop={'size': 8})  
-plt.annotate('-a/2', (-50,0),fontsize=14) 
-plt.annotate('a/2', (50,0),fontsize=14) 
+plt.legend(loc=4,prop={'size': 8})   
+plt.annotate('-a/2', (-54,0),fontsize=14) 
+plt.annotate('a/2', (46,0),fontsize=14) 
+plt.xticks(range(-50, 60,10))
 plt.show()
+
+plt.figure()
+plt.plot(x,psi2**2, c='b',alpha=0.5,label='First excited state square')
+plt.title("Wavefunctions")
+plt.axvline(linewidth=2, color='k')
+plt.axhline(linewidth=2, color='k')
+plt.legend(loc=4,prop={'size': 8})   
+plt.annotate('-a/2', (-54,0),fontsize=14) 
+plt.annotate('a/2', (46,0),fontsize=14) 
+plt.xticks(range(-50, 60,10))
+plt.show()
+
